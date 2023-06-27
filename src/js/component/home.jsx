@@ -1,34 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import "../../styles/index.css";
+import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (time) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
-
-    return `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  };
-
-  return (
-    <div style={{ backgroundColor: "black", color: "white" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <h2 style={{ marginRight: "10px" }}>{formatTime(count)}</h2>
-        <span>Simple Counter</span>
-      </div>
-    </div>
-  );
+SimpleCounter.propTypes = {
+  digitFour: PropTypes.number,
+  digitThree: PropTypes.number,
+  digitTwo: PropTypes.number,
+  digitOne: PropTypes.number,
 };
 
-export default Counter;
+function SimpleCounter(props) {
+  return (
+    <div className="bigCounter">
+      <div className="calendar">
+        <FontAwesomeIcon icon={faClock} />
+      </div>
+      <div className="four">{props.digitFour %10}</div>
+      <div className="three">{props.digitThree %10}</div>
+      <div className="two">{props.digitTwo %10}</div>
+      <div className="one">{props.digitOne %10}</div>
+    </div>
+  );
+}
+
+export default SimpleCounter;
